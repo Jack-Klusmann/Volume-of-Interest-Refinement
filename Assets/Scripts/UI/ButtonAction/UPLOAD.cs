@@ -1,18 +1,24 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class UPLOAD : MonoBehaviour
 {
     [SerializeField] private VoxelGridVisualizer voxelGridVisualizer;
     [SerializeField] private PopupMessage popupMessage;
+    [SerializeField] private Settings settings;
 
     public void OnClick()
     {
         if (voxelGridVisualizer.meshExists)
         {
-            voxelGridVisualizer.uploadToserverAndVisualize();
-            popupMessage.PopUp("UPLOADING...");
+            if (settings.getBoolByName("Local Mode"))
+            {
+                GLTFstuff.ExportGameObjectToPath(GameObject.Find("VoxelGridAsMesh"), Application.persistentDataPath);
+            }
+            else
+            {
+                voxelGridVisualizer.uploadToserverAndVisualize();
+                popupMessage.PopUp("UPLOADING...");
+            }
         }
         else
         {

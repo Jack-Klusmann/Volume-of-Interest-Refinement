@@ -1,20 +1,16 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
-/*
- * Handles the UI and data for the settings menu.
- * Any script trying to get a user defined settings value, calls this script.
- */
+// Handles the UI and data for the settings menu
+
 public class Settings : MonoBehaviour, IGlobalContextSubscriber
 {
 
     [SerializeField] internal GameObject headlineUI, boolValueUI, intValueUI, floatValueUI, sliderValueUI, containerGeneral, containerExpert, containerParent, settings;
 
     private List<SettingsValue> settingsValues;
-    const int generalSettingsCount = 4; // the first x settings are always displayed (Headline counts as setting)
+    const int generalSettingsCount = 5; // the first x settings are always displayed (Headline counts as setting)
     bool displayingExpert;
 
     public void update()
@@ -74,37 +70,37 @@ public class Settings : MonoBehaviour, IGlobalContextSubscriber
     // I know this is bad, but I needed to get it working quickly.
     public void setXStart(float f)
     {
-        ((FloatValue)settingsValues[8]).actualValue = f;
+        ((FloatValue)settingsValues[9]).actualValue = f;
     }
     
     public void setXEnd(float f)
     {
-        ((FloatValue)settingsValues[9]).actualValue = f;
+        ((FloatValue)settingsValues[10]).actualValue = f;
     }
     
     public void setYStart(float f)
     {
-        ((FloatValue)settingsValues[10]).actualValue = f;
+        ((FloatValue)settingsValues[11]).actualValue = f;
     }
     
     public void setYEnd(float f)
     {
-        ((FloatValue)settingsValues[11]).actualValue = f;
+        ((FloatValue)settingsValues[12]).actualValue = f;
     }
     
     public void setZStart(float f)
     {
-        ((FloatValue)settingsValues[12]).actualValue = f;
+        ((FloatValue)settingsValues[13]).actualValue = f;
     }
     
     public void setZEnd(float f)
     {
-        ((FloatValue)settingsValues[13]).actualValue = f;
+        ((FloatValue)settingsValues[14]).actualValue = f;
     }
 
     public void setInitialVoxelSize(float f)
     {
-        ((FloatValue)settingsValues[14]).actualValue = f;
+        ((FloatValue)settingsValues[15]).actualValue = f;
     }
 
     public bool getBoolByName(string name)
@@ -150,6 +146,7 @@ public class Settings : MonoBehaviour, IGlobalContextSubscriber
             new BoolValue(boolValueUI, "MarchingCubes method", true),
             new IntValue(intValueUI, "Initial Voxel count", 100),
             new IntValue(intValueUI, "Max number subdivision iterations", 3),
+            new BoolValue(boolValueUI, "Local Mode", true),
 
             new Headline(headlineUI, "Expert Adjustments"),
             // Instead of cube being initialized as small cube on top of marker, the cube is adjusted so it contains the object of interest.
