@@ -14,7 +14,7 @@ public class Settings : MonoBehaviour, IGlobalContextSubscriber
     [SerializeField] internal GameObject headlineUI, boolValueUI, intValueUI, floatValueUI, sliderValueUI, containerGeneral, containerExpert, containerParent, settings;
 
     private List<SettingsValue> settingsValues;
-    const int generalSettingsCount = 5; // the first x settings are always displayed (Headline counts as setting)
+    const int generalSettingsCount = 4; // the first x settings are always displayed (Headline counts as setting)
     bool displayingExpert;
 
     public void update()
@@ -70,41 +70,41 @@ public class Settings : MonoBehaviour, IGlobalContextSubscriber
         }
         throw new KeyNotFoundException("There is not float value with name " + name + "!");
     }
-
+    
     // I know this is bad, but I needed to get it working quickly.
     public void setXStart(float f)
     {
-        ((FloatValue)settingsValues[9]).actualValue = f;
+        ((FloatValue)settingsValues[8]).actualValue = f;
     }
     
     public void setXEnd(float f)
     {
-        ((FloatValue)settingsValues[10]).actualValue = f;
+        ((FloatValue)settingsValues[9]).actualValue = f;
     }
     
     public void setYStart(float f)
     {
-        ((FloatValue)settingsValues[11]).actualValue = f;
+        ((FloatValue)settingsValues[10]).actualValue = f;
     }
     
     public void setYEnd(float f)
     {
-        ((FloatValue)settingsValues[12]).actualValue = f;
+        ((FloatValue)settingsValues[11]).actualValue = f;
     }
     
     public void setZStart(float f)
     {
-        ((FloatValue)settingsValues[13]).actualValue = f;
+        ((FloatValue)settingsValues[12]).actualValue = f;
     }
     
     public void setZEnd(float f)
     {
-        ((FloatValue)settingsValues[14]).actualValue = f;
+        ((FloatValue)settingsValues[13]).actualValue = f;
     }
 
     public void setInitialVoxelSize(float f)
     {
-        ((FloatValue)settingsValues[15]).actualValue = f;
+        ((FloatValue)settingsValues[14]).actualValue = f;
     }
 
     public bool getBoolByName(string name)
@@ -150,7 +150,6 @@ public class Settings : MonoBehaviour, IGlobalContextSubscriber
             new BoolValue(boolValueUI, "MarchingCubes method", true),
             new IntValue(intValueUI, "Initial Voxel count", 100),
             new IntValue(intValueUI, "Max number subdivision iterations", 3),
-            new BoolValue(boolValueUI, "Local Mode", true),
 
             new Headline(headlineUI, "Expert Adjustments"),
             // Instead of cube being initialized as small cube on top of marker, the cube is adjusted so it contains the object of interest.
@@ -187,7 +186,7 @@ public class Settings : MonoBehaviour, IGlobalContextSubscriber
         HideExpert();
     }
 
-    // Applies the values set in the UI to all internal values
+    // apply the values set in the UI to all internal values
     public void applyAll()
     {
         foreach (var settingsValue in settingsValues)
@@ -195,4 +194,197 @@ public class Settings : MonoBehaviour, IGlobalContextSubscriber
             settingsValue.applyValue();
         }
     }
+
+    /*
+     * The value elements, which handle UI and value storage
+     */
+    #region settingsValues
+    internal abstract class SettingsValue
+    {
+        internal string name { get; set; }
+        public GameObject valueUI;
+
+        internal SettingsValue(GameObject valueUI, string name)
+        {
+            this.valueUI = valueUI;
+            this.name = name;
+        }
+
+        private bool wasInitialized = false;
+
+        internal float initialize(GameObject container, float offset)
+        {
+            float ret = 0;
+            if(!wasInitialized)
+            {
+                wasInitialized = true;
+                ret = _initialize(container, offset);
+            }
+            openSettings();
+            return ret;
+        }
+
+        internal abstract void openSettings();
+
+        protected abstract float _initialize(GameObject container, float offset);
+
+        internal abstract void applyValue();
+    }
+
+    internal class BoolValue : SettingsValue
+    {
+        internal BoolValue(GameObject valueUI, string name, bool initialValue = false) : base(valueUI, name) { actualValue = initialValue; }
+
+        internal bool actualValue { get; private set; }
+
+        private BoolValueUI wrapper;
+
+        protected override float _initialize(GameObject container, float offset)
+        {
+            wrapper = Instantiate(valueUI, container.transform).GetComponent<BoolValueUI>();
+            wrapper.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -offset);
+            wrapper.setName(name);
+            return offset + wrapper.GetComponent<RectTransform>().rect.height;
+        }
+
+        internal override void openSettings()
+        {
+            wrapper.setValue(actualValue);
+        }
+
+        internal override void applyValue()
+        {
+            try
+            {
+                actualValue = wrapper.getValue();
+            }
+            catch (FormatException) { }
+        }
+    }
+
+    internal class SliderValue : SettingsValue
+    {
+        internal SliderValue(GameObject valueUI, string name, int initialValue = 1) : base(valueUI, name)
+        {
+            actualValue = initialValue;
+        }
+
+        internal int actualValue { get; private set; }
+
+        private SliderValueUI wrapper;
+
+        protected override float _initialize(GameObject container, float offset)
+        {
+            wrapper = Instantiate(valueUI, container.transform).GetComponent<SliderValueUI>();
+            wrapper.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -offset);
+            wrapper.SetName(name);
+            wrapper.slider.minValue = 0;
+            wrapper.slider.maxValue = 3;
+            return offset + wrapper.GetComponent<RectTransform>().rect.height;
+        }
+
+        internal override void openSettings()
+        {
+            wrapper.SetValue(actualValue);
+        }
+
+        internal override void applyValue()
+        {
+            try
+            {
+                actualValue = wrapper.GetValue();
+            }
+            catch (FormatException)
+            {
+            }
+        }
+    }
+
+    internal class FloatValue : SettingsValue
+    {
+        internal FloatValue(GameObject valueUI, string name, float initialValue = 0) : base(valueUI, name) { actualValue = initialValue; }
+
+        internal float actualValue { get; set; }
+
+        private FloatValueUI wrapper;
+
+        protected override float _initialize(GameObject container, float offset)
+        {
+            wrapper = Instantiate(valueUI, container.transform).GetComponent<FloatValueUI>();
+            wrapper.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -offset);
+            wrapper.setName(name);
+            return offset + wrapper.GetComponent<RectTransform>().rect.height;
+        }
+
+        internal override void openSettings()
+        {
+            wrapper.setValue(actualValue);
+        }
+
+        internal override void applyValue()
+        {
+            try
+            {
+                actualValue = wrapper.getValue();
+            }
+            catch (FormatException) { }
+        }
+    }
+
+    internal class IntValue : SettingsValue
+    {
+        internal IntValue(GameObject valueUI, string name, int initialValue=0) : base(valueUI, name) { actualValue = initialValue;  }
+
+        internal int actualValue { get; private set; }
+
+        private IntValueUI wrapper;
+
+        protected override float _initialize(GameObject container, float offset)
+        {
+            wrapper = Instantiate(valueUI, container.transform).GetComponent<IntValueUI>();
+            wrapper.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -offset);
+            wrapper.setName(name);
+            return offset + wrapper.GetComponent<RectTransform>().rect.height;
+        }
+
+        internal override void openSettings()
+        {
+            wrapper.setValue(actualValue);
+        }
+
+        internal override void applyValue()
+        {
+            try
+            {
+                actualValue = wrapper.getValue();
+            }
+            catch (FormatException) { }
+        }
+    }
+
+    internal class Headline : SettingsValue
+    {
+        internal Headline(GameObject valueUI, string name) : base(valueUI, name) { }
+
+        private HeadlineUI wrapper;
+
+        protected override float _initialize(GameObject container, float offset)
+        {
+            wrapper = Instantiate(valueUI, container.transform).GetComponent<HeadlineUI>();
+            wrapper.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -offset);
+            wrapper.setName(name);
+            return offset + wrapper.GetComponent<RectTransform>().rect.height;
+        }
+
+        internal override void openSettings()
+        {
+            // do nothing, as this is just a headline and has no value
+        }
+
+        internal override void applyValue()
+        {
+            // do nothing, as this is just a headline and has no value
+        }
+    }
+    #endregion settingsValues
 }
