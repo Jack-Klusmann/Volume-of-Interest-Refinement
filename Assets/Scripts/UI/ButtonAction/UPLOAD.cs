@@ -6,13 +6,21 @@ public class UPLOAD : MonoBehaviour
 {
     [SerializeField] private VoxelGridVisualizer voxelGridVisualizer;
     [SerializeField] private PopupMessage popupMessage;
+    [SerializeField] private Settings settings;
 
     public void OnClick()
     {
         if (voxelGridVisualizer.meshExists)
         {
-            voxelGridVisualizer.uploadToserverAndVisualize();
-            popupMessage.PopUp("UPLOADING...");
+            if (settings.getBoolByName("Local Mode"))
+            {
+                
+            }
+            else
+            {
+                voxelGridVisualizer.uploadToserverAndVisualize();
+                popupMessage.PopUp("UPLOADING...");
+            }
         }
         else
         {
