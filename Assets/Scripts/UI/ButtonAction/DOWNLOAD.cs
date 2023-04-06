@@ -8,7 +8,14 @@ public class DOWNLOAD : MonoBehaviour
 
     public void OnClick()
     {
-        voxelGridVisualizer.downloadAndVisualizeGLTF();
-        popupMessage.PopUp("DOWNLOADING");
+        if (settings.getBoolByName("Local Mode"))
+        {
+            return;
+        }
+        else
+        {
+            voxelGridVisualizer.downloadAndVisualizeGLTF();
+            popupMessage.PopUp("DOWNLOADING");
+        }
     }
 }

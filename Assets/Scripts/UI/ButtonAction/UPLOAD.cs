@@ -12,7 +12,7 @@ public class UPLOAD : MonoBehaviour
         {
             if (settings.getBoolByName("Local Mode"))
             {
-                GLTFstuff.ExportGameObjectToPath(GameObject.Find("VoxelGridAsMesh"), Application.persistentDataPath);
+                GLTFstuff.ExportGameObjectToPath(GameObject.Find("VoxelGridAsMesh"), Application.persistentDataPath + "/exportedGLTF");
             }
             else
             {
