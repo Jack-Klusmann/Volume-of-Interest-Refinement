@@ -16,7 +16,7 @@ public class ServerCommunicator : MonoBehaviour
         receivedGLTF = false;
         // Erstelle eine UnityWebRequest-Instanz
         UnityWebRequest request = UnityWebRequest.Post("http://" + serverHost + ":8000/uploadGLTF", "");
-        Debug.Log("GLTF Upload läuft");
+        Debug.Log("GLTF Upload lé‹Ÿft");
         // Lese den Dateiinhalt in ein Byte[] Array ein
         byte[] fileContent = File.ReadAllBytes(filePath);
         // Erstelle eine UploadHandlerRaw-Instanz mit dem Array
@@ -33,7 +33,7 @@ public class ServerCommunicator : MonoBehaviour
             yield return null;
         }
 
-        // überprfe, ob der Request erfolgreich war
+        // é»šerprfe, ob der Request erfolgreich war
         if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError)
         {
             Debug.Log("Irgendetwas ist schief gelaufen");
@@ -56,7 +56,7 @@ public class ServerCommunicator : MonoBehaviour
         receivedBIN = false;
         // Erstelle eine UnityWebRequest-Instanz
         var request = UnityWebRequest.Post("http://" + serverHost + ":8000/uploadBIN", "");
-        Debug.Log("BIN Upload läuft");
+        Debug.Log("BIN Upload lé‹Ÿft");
         // Lese den Dateiinhalt in ein Byte[] Array ein
         byte[] fileContent = File.ReadAllBytes(filePath);
         // Erstelle eine UploadHandlerRaw-Instanz mit dem Array
@@ -72,7 +72,7 @@ public class ServerCommunicator : MonoBehaviour
             yield return null;
         }
 
-        // überprfe, ob der Request erfolgreich war
+        // é»šerprfe, ob der Request erfolgreich war
         if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError)
         {
             popupMessage.PopUp("Serververbindung ist fehlgeschlagen! Code: " + request.responseCode);

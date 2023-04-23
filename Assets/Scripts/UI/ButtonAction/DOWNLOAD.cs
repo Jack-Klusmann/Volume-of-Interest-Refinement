@@ -10,12 +10,13 @@ public class DOWNLOAD : MonoBehaviour
     {
         if (settings.getBoolByName("Local Mode"))
         {
-            return;
+            voxelGridVisualizer.VisualizeLocalMesh();
+            popupMessage.PopUp("Import successful", 3);
         }
         else
         {
-            voxelGridVisualizer.downloadAndVisualizeGLTF();
-            popupMessage.PopUp("DOWNLOADING");
+            voxelGridVisualizer.DownloadAndVisualizeMesh();
+            popupMessage.PopUp("Download successful", 3);
         }
     }
 }

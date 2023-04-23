@@ -20,14 +20,14 @@ public class SD_YES : MonoBehaviour
         {
             spController.UpdateImageMarking();
             drawingImage.camPos.mainCameraCopy.transform.position.Set(
-                gallery.imageMarkings[gallery.lastImageSelected].Position.x,
-                gallery.imageMarkings[gallery.lastImageSelected].Position.y,
-                gallery.imageMarkings[gallery.lastImageSelected].Position.z);
+                gallery.ImageMarkings[gallery.lastImageSelected].Position.x,
+                gallery.ImageMarkings[gallery.lastImageSelected].Position.y,
+                gallery.ImageMarkings[gallery.lastImageSelected].Position.z);
             drawingImage.camPos.mainCameraCopy.transform.rotation.Set(
-                gallery.imageMarkings[gallery.lastImageSelected].Rotation.w,
-                gallery.imageMarkings[gallery.lastImageSelected].Rotation.x,
-                gallery.imageMarkings[gallery.lastImageSelected].Rotation.y,
-                gallery.imageMarkings[gallery.lastImageSelected].Rotation.z);
+                gallery.ImageMarkings[gallery.lastImageSelected].Rotation.w,
+                gallery.ImageMarkings[gallery.lastImageSelected].Rotation.x,
+                gallery.ImageMarkings[gallery.lastImageSelected].Rotation.y,
+                gallery.ImageMarkings[gallery.lastImageSelected].Rotation.z);
             drawingImage.GenerateWorldPoints();
             GlobalContextVariable.updateValue(GlobalContextVariable.GlobalContextVariableValue.gallery);
         }

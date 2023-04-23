@@ -1,32 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-/*
- * Stores the currently displayed image on the camera and shows it on a UI image.
- * 
- * Displays the selected image when in gallery drawing mode.
- * 
- * Hides the UI image when exiting drawing mode (i.e., everytime a non-drawing mode is entered)
- */
+//Stores the currently displayed image on the camera, displays the it when in gallery drawing mode and hides the it when exiting drawing mode
+
 public class RenderToTexture : MonoBehaviour, IGlobalContextSubscriber
 {
-    private static bool frozen = false;
+    private static bool frozen;
 
-    [SerializeField]
-    private Camera cam, cam2;
+    [SerializeField] private Camera cam, cam2;
 
-    [SerializeField]
-    private RawImage image;
-    [SerializeField]
-    private PhotoFlash photoFlash;
+    [SerializeField] private RawImage image;
+    [SerializeField] private PhotoFlash photoFlash;
 
-    [SerializeField]
-    private GalleryStorage gallery;
-    
-    [SerializeField]
-    public Text positionText;
+    [SerializeField] private GalleryStorage gallery;
+
+    [SerializeField] public Text positionText;
 
     public Texture2D photoTexture { get; private set; }
 
@@ -71,11 +59,10 @@ public class RenderToTexture : MonoBehaviour, IGlobalContextSubscriber
 
         image.enabled = false;
         camera.targetTexture = null;
-
     }
 
     public void update()
-    {     
+    {
         switch (GlobalContextVariable.globalContextVariable)
         {
             case GlobalContextVariable.GlobalContextVariableValue.photo_drawing:

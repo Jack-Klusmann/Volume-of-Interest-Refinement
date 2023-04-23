@@ -71,7 +71,7 @@ public class SP_Controller : MonoBehaviour
 
             watch.Stop();
             loadingScreen.SetActive(false);
-            visualizer.visualizeMarchingCubes();
+            visualizer.VisualizeMarchingCubes();
         }
         else
         {
@@ -85,7 +85,7 @@ public class SP_Controller : MonoBehaviour
                 while (!oldVoxelGrid.calculationDone()) yield return new WaitForEndOfFrame();
             }
             watch.Stop();
-            visualizer.visualize();
+            visualizer.Visualize();
             loadingScreen.SetActive(false);
         }
 

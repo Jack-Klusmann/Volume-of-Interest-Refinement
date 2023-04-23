@@ -12,17 +12,18 @@ public class UPLOAD : MonoBehaviour
         {
             if (settings.getBoolByName("Local Mode"))
             {
-                GLTFstuff.ExportGameObjectToPath(GameObject.Find("VoxelGridAsMesh"), Application.persistentDataPath + "/exportedGLTF");
+                voxelGridVisualizer.ExportLocallyAndVisualize();
+                popupMessage.PopUp("Export successful", 3);
             }
             else
             {
-                voxelGridVisualizer.uploadToserverAndVisualize();
-                popupMessage.PopUp("UPLOADING...");
+                voxelGridVisualizer.UploadToServerAndVisualize();
+                popupMessage.PopUp("Upload successful", 3);
             }
         }
         else
         {
-            popupMessage.PopUp("You have to generate the Mesh before sending it!");
+            popupMessage.PopUp("There is currently no mesh to be uploaded");
         }
     }
 }
