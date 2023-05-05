@@ -62,10 +62,8 @@ public class VoxelGridVisualizer : MonoBehaviour
 
     public void ExportLocallyAndVisualize()
     {
-        if (serverMeshExists) Destroy(GameObject.Find("serverGLTF"));
         GLTFstuff.ExportGameObjectToPath(GameObject.Find("VoxelGridAsMesh"),
             Application.persistentDataPath + "/exportedGLTF");
-        serverMeshExists = true;
     }
 
     private void SendMeshToServer(string filePath = "Assets/Resources/GLTF/exportedGLTF",
@@ -94,10 +92,9 @@ public class VoxelGridVisualizer : MonoBehaviour
 
     public void VisualizeLocalMesh()
     {
-        loadingScreen.SetActive(true);
         if (meshExists) Destroy(GameObject.Find("exportedGLTF"));
         GLTFstuff.ImportGameObjectFromPath(GameObject.Find("ImageTarget"),
-            Application.persistentDataPath + "/exportedGLTF");
+            Application.persistentDataPath + "/exportedGLTF.gltf");
         meshExists = true;
     }
 }
