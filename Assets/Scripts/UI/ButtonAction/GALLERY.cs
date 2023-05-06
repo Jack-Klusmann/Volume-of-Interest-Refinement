@@ -1,4 +1,3 @@
-using System.Threading.Tasks;
 using UnityEngine;
 
 public class GALLERY : MonoBehaviour
@@ -21,7 +20,6 @@ public class GALLERY : MonoBehaviour
         //gallery.IntersectEverythingNew();
         //}
 
-        GlobalContextVariable.updateValue(GlobalContextVariable.GlobalContextVariableValue.gallery);
         if (gallery.GetImageMarkingCount() > 0)
             GlobalContextVariable.updateValue(GlobalContextVariable.GlobalContextVariableValue.gallery);
         else

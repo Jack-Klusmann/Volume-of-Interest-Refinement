@@ -8,7 +8,7 @@ public class SD_PHOTO : MonoBehaviour
     {
         if (trackingStatus != null && !trackingStatus.targetTracked)
         {
-            spController.popupMessage.PopUp("No Marker is tracked!");
+            spController.popupMessage.PopUp("No marker is being tracked!");
             return;
         }
         GlobalContextVariable.updateValue(GlobalContextVariable.GlobalContextVariableValue.photo_drawing);

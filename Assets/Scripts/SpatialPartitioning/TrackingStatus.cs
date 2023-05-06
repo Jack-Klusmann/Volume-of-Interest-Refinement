@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
 
@@ -7,6 +5,7 @@ public class TrackingStatus : MonoBehaviour
 {
     [SerializeField] Image image;
     [HideInInspector] public bool targetTracked = false;
+
     public void displayTracked() 
     {
         if (image != null)

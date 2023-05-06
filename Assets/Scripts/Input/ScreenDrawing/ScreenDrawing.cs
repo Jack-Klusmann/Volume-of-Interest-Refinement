@@ -144,7 +144,10 @@ public class ScreenDrawing : MonoBehaviour, IGlobalContextSubscriber
         position = Vector3.zero;
         if (Input.touchCount < 1 || Input.touches[0].phase != TouchPhase.Moved) return false;
 
-        var pos = Input.GetTouch(0).position;
+        var temp = Input.GetTouch(0);
+        //if (temp.radius > temp.radiusVariance) return false;
+        
+        var pos = temp.position;
         position = drawingCam.ScreenToWorldPoint(new Vector3(pos.x, pos.y, ZDepth));
 
         return true;
