@@ -50,7 +50,7 @@ public class VoxelGrid : MonoBehaviour
         return voxels.ToArray();
     }
 
-    public int getVoxelCount()
+    public int GetVoxelCount()
     {
         return voxels.Count;
     }
