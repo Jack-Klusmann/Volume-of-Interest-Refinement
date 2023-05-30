@@ -3,7 +3,7 @@ using UnityEngine;
 public class SD_PHOTO : MonoBehaviour
 {
     [SerializeField] private SP_Controller spController;
-    [SerializeField] TrackingStatus trackingStatus;
+    [SerializeField] private TrackingStatus trackingStatus;
     public void OnClick()
     {
         if (trackingStatus != null && !trackingStatus.targetTracked)

@@ -43,7 +43,7 @@ public class RenderToTexture : MonoBehaviour, IGlobalContextSubscriber
 
         frozen = true;
 
-        photoFlash?.photoFlash(0.4f);
+        photoFlash?.PhotoFlasher(0.4f);
 
         photoTexture = RTImage(camera, renderTexture);
 

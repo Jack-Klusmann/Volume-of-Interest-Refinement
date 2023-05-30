@@ -20,7 +20,7 @@
       "hash": "de1bb020f97f730257a1e49f1afd87954663be71"
     },
     "com.ptc.vuforia.engine": {
-      "version": "file:com.ptc.vuforia.engine-10.5.5.tgz",
+      "version": "file:com.ptc.vuforia.engine-10.15.4.tgz",
       "depth": 0,
       "source": "local-tarball",
       "dependencies": {

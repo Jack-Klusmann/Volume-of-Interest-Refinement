@@ -1,10 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CLEAR : MonoBehaviour
 {
-    [SerializeField] VoxelGridVisualizer visualizer;
+    [SerializeField] private VoxelGridVisualizer visualizer;
     public void OnClick()
     {
         Destroy(GameObject.Find("exportedGLTF"));

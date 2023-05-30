@@ -19,17 +19,19 @@ MonoBehaviour:
     cameraFocusModeSetting: 2
     cameraDeviceModeSetting: -1
     maxSimultaneousImageTargets: 4
-    maxSimultaneousObjectTargets: 1
     virtualSceneScaleFactor: 1
-    useDelayedLoadingObjectTargets: 0
     modelTargetRecoWhileExtendedTracked: 1
     shareRecordingsInITunes: 1
-    version: 10.5.5
-    eulaAcceptedVersions: '{"Values":["","0.0","10.5","10.7","10.9","10.12"]}'
+    logLevel: 0
+    version: 10.15.4
+    eulaAcceptedVersions: '{"Values":["","0.0","10.5","10.7","10.9","10.12","10.15"]}'
   database:
     disableModelExtraction: 1
   shaders:
     depthMaskShader: {fileID: 4800000, guid: 1ce7eb78425fb1540838bc9d5d95857a, type: 3}
+    outlineShader: {fileID: 4800000, guid: 88d3b6b5cf364476ca39fcec255331b1, type: 3}
+    unlitTransparentShader: {fileID: 10750, guid: 0000000000000000f000000000000000,
+      type: 0}
   videoBackground:
     numDivisions: 2
     videoBackgroundShader: {fileID: 4800000, guid: f40623b353e2f1943b1b3ba42975db7a,
@@ -42,7 +44,7 @@ MonoBehaviour:
     autoImportArcore: 1
     thirdPartyARCoreClientDetected: 0
   playmode:
-    mSequencePath: Assets/SamplesResources/Recordings/area_target.mp4
+    mRecordingPath: Assets/SamplesResources/Recordings/area_target.mp4
     playModeType: 0
   webcam:
     renderTextureLayer: 30

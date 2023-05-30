@@ -78,14 +78,14 @@ public class CameraSettings : MonoBehaviour
                 // Fallback to normal focus mode
                 Debug.Log("Failed to enable continuous autofocus, switching to normal focus mode");
                 mIsAutofocusEnabled = false;
-                VuforiaBehaviour.Instance.CameraDevice.SetFocusMode(FocusMode.FOCUS_MODE_NORMAL);
+                VuforiaBehaviour.Instance.CameraDevice.SetFocusMode(FocusMode.FOCUS_MODE_FIXED);
             }
         }
         else
         {
             Debug.Log("Disabling continuous autofocus (enabling normal focus mode).");
             mIsAutofocusEnabled = false;
-            VuforiaBehaviour.Instance.CameraDevice.SetFocusMode(FocusMode.FOCUS_MODE_NORMAL);
+            VuforiaBehaviour.Instance.CameraDevice.SetFocusMode(FocusMode.FOCUS_MODE_FIXED);
 
         }
     }
@@ -117,7 +117,7 @@ public class CameraSettings : MonoBehaviour
             if (mIsAutofocusEnabled)
                 VuforiaBehaviour.Instance.CameraDevice.SetFocusMode(FocusMode.FOCUS_MODE_CONTINUOUSAUTO);
             else
-                VuforiaBehaviour.Instance.CameraDevice.SetFocusMode(FocusMode.FOCUS_MODE_NORMAL);
+                VuforiaBehaviour.Instance.CameraDevice.SetFocusMode(FocusMode.FOCUS_MODE_FIXED);
         }
         else
         {
@@ -135,7 +135,7 @@ public class CameraSettings : MonoBehaviour
         if (mIsAutofocusEnabled)
             VuforiaBehaviour.Instance.CameraDevice.SetFocusMode(FocusMode.FOCUS_MODE_CONTINUOUSAUTO);
         else
-            VuforiaBehaviour.Instance.CameraDevice.SetFocusMode(FocusMode.FOCUS_MODE_NORMAL);
+            VuforiaBehaviour.Instance.CameraDevice.SetFocusMode(FocusMode.FOCUS_MODE_FIXED);
         mIsFocusing = false;
     }
 }

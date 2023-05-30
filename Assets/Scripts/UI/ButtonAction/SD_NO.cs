@@ -6,15 +6,17 @@ public class SD_NO : MonoBehaviour
 
     public void OnClick()
     {
-        if (GlobalContextVariable.globalContextVariable ==
-            GlobalContextVariable.GlobalContextVariableValue.gallery_drawing)
-            GlobalContextVariable.updateValue(GlobalContextVariable.GlobalContextVariableValue.gallery);
-        else if (GlobalContextVariable.globalContextVariable ==
-                 GlobalContextVariable.GlobalContextVariableValue.photo_drawing ||
-                 GlobalContextVariable.globalContextVariable ==
-                 GlobalContextVariable.GlobalContextVariableValue.settings)
-            GlobalContextVariable.updateValue(GlobalContextVariable.GlobalContextVariableValue.main_view);
-        
+        switch (GlobalContextVariable.globalContextVariable)
+        {
+            case GlobalContextVariable.GlobalContextVariableValue.gallery_drawing:
+                GlobalContextVariable.updateValue(GlobalContextVariable.GlobalContextVariableValue.gallery);
+                break;
+            case GlobalContextVariable.GlobalContextVariableValue.photo_drawing:
+            case GlobalContextVariable.GlobalContextVariableValue.settings:
+                GlobalContextVariable.updateValue(GlobalContextVariable.GlobalContextVariableValue.main_view);
+                break;
+        }
+
         if(drawing != null)
             drawing.fingerLifted = false;
     }
