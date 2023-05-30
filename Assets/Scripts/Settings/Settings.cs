@@ -160,10 +160,9 @@ public class Settings : MonoBehaviour, IGlobalContextSubscriber
             new FloatValue(floatValueUI, "Z start", -0.1f),
             new FloatValue(floatValueUI, "Z end", 0.1f),
             //new SliderValue(sliderValueUI, "Object Size", 1),
-            new FloatValue(floatValueUI, "Initial voxel size", 0.1f),
+            new FloatValue(floatValueUI, "Initial voxel size", 0.05f),
             new FloatValue(floatValueUI, "Voxel alpha", 0.35f),
-
-            //new IntValue(intValueUI, "Max number of voxels to subdivide", 10000),
+            new IntValue(intValueUI, "Max number of voxels to subdivide", 500),
             
         };
 

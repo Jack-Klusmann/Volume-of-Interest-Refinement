@@ -20,11 +20,11 @@ public class SP_Controller : MonoBehaviour
 
     private GalleryStorage.ImageMarking[] _markings;
     public List<Vector3> points;
-    Quaternion rotation;
-    Vector3 position;
-    Vector3 localScale;
+    private Quaternion _rotation;
+    private Vector3 _position;
+    private Vector3 _localScale;
 
-    [HideInInspector] public float autoVoxelSize = 0.0f;
+    [HideInInspector] public float autoVoxelSize;
 
     private void Awake()
     {
@@ -46,9 +46,9 @@ public class SP_Controller : MonoBehaviour
         {
             loadingScreen.SetActive(true);
             var gridSpace = voxelGrid.gridSpace();
-            rotation = gridSpace.rotation;
-            position = gridSpace.position;
-            localScale = gridSpace.localScale;
+            _rotation = gridSpace.rotation;
+            _position = gridSpace.position;
+            _localScale = gridSpace.localScale;
             var thread = new Thread(Calculation);
             thread.Start();
 
@@ -89,8 +89,8 @@ public class SP_Controller : MonoBehaviour
              iteration < maxSubdivisionIterations &&
              (voxelGrid.getTotalVoxelCount() < maxVoxelsToSubdivide || iteration == 0);
              iteration++)
-            voxelGrid.subdivideVoxelsThreading(CheckForIntersectionFromImageMarkings, iteration != 0, rotation,
-                position, localScale);
+            voxelGrid.subdivideVoxelsThreading(CheckForIntersectionFromImageMarkings, iteration != 0, _rotation,
+                _position, _localScale);
     }
 
     /*
@@ -111,11 +111,11 @@ public class SP_Controller : MonoBehaviour
     private bool CheckForIntersectionFromImageMarkings(Vector3 vec3)
     {
         if (_markings.Length == 0) return false;
-        
+
         foreach (var im in _markings)
         {
             var tmp = im.ProjectionMatrix * (vec3 - im.Position);
-            
+
             if (tmp.z < 0) return false;
 
             var screenPoint = new Point(tmp.x / tmp.z, tmp.y / tmp.z);
@@ -135,7 +135,7 @@ public class SP_Controller : MonoBehaviour
         return true;
     }
 
-    // WHen the user takes a picture, the camera properties of mainCamera are copied to mainCameraCopy.
+    // When the user takes a picture, the camera properties of mainCamera are copied to mainCameraCopy.
     // The rest of the code is no longer used.
     public List<Vector3> CreateCubeIntersectionFrustum()
     {
@@ -161,7 +161,6 @@ public class SP_Controller : MonoBehaviour
     // pass down the function
     public void SaveImageMarking()
     {
-
         galleryStorage.AddImageMarking(renderToTexture.photoTexture, camPos.ProjectionMat, camPos.Position,
             camPos.mainCamera.transform.rotation, points);
 
